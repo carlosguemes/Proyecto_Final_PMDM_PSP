@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'Vistas/HomeView.dart';
 import 'Vistas/LoginView.dart';
+import 'Vistas/MapaView.dart';
 import 'Vistas/ProductosView.dart';
 import 'Vistas/RegisterView.dart';
 
@@ -16,6 +17,7 @@ class ProductosApp extends StatelessWidget{
         '/homeview': (context) => HomeView(),
         '/loginview': (context) => LoginView(),
         '/productosview': (context) => ProductosView(),
+        '/mapaview': (context) => MapaView(),
       },
       initialRoute: '/homeview',
     );

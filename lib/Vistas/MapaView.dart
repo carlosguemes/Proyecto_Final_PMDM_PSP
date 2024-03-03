@@ -57,11 +57,35 @@ class MapaViewState extends State<MapaView> {
 
     Marker marcador = Marker(
       markerId: MarkerId('1'),
-      position: LatLng(40.4709546, -3.4700426),
+      position: LatLng(40.46151833607977, -3.4902259282354193),
+    );
+
+    Marker marcador2 = Marker(
+      markerId: MarkerId('2'),
+      position: LatLng(40.432999470281096, -3.5334851040598427),
+    );
+
+    Marker marcador3 = Marker(
+      markerId: MarkerId('3'),
+      position: LatLng(40.4272174011443, -3.5267903107408456),
+    );
+
+    Marker marcador4 = Marker(
+      markerId: MarkerId('4'),
+      position: LatLng(40.42427717533754, -3.5325409665404974),
+    );
+
+    Marker marcador5 = Marker(
+      markerId: MarkerId('5'),
+      position: LatLng(40.42213726352629, -3.5344614280855304),
     );
 
     setState(() {
       marcadores.add(marcador);
+      marcadores.add(marcador2);
+      marcadores.add(marcador3);
+      marcadores.add(marcador4);
+      marcadores.add(marcador5);
     });
   }
 }

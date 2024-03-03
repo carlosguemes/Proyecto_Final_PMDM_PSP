@@ -30,8 +30,8 @@ class DrawerPersonalizado extends StatelessWidget{
             },
           ),
           ListTile(
-            leading: Icon(Icons.ad_units),
-            title: const Text('Registrarse'),
+            leading: Icon(Icons.map),
+            title: const Text('Mapa'),
             onTap: () {
               onItemTap!(1);
             },

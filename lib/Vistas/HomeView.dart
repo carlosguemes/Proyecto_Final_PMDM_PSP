@@ -7,6 +7,7 @@ import '../Singletone/DataHolder.dart';
 import '../VistasPersonalizadas/CeldasPersonalizadas.dart';
 import '../VistasPersonalizadas/DrawerPersonalizado.dart';
 import 'LoginView.dart';
+import 'MapaView.dart';
 import 'RegisterView.dart';
 
 class HomeView extends StatefulWidget{
@@ -56,9 +57,10 @@ class _HomeViewState extends State<HomeView> {
     }
 
     else if (indice == 1){
-      for (int i = 0; i < productos.length; i++){
-        print(productos[i].nombre);
-      }
+      Navigator.of(context).pushAndRemoveUntil (
+        MaterialPageRoute (builder: (BuildContext context) => MapaView()),
+        ModalRoute.withName('/mapaview'),
+      );
     }
   }
 
