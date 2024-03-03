@@ -31,15 +31,19 @@ class _ProductosViewState extends State<ProductosView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Producto")),
-      body: Column(
-        children: [
-          Text(_datosProducto.nombre),
-          Image.network(_datosProducto.imagen, width: 100, height: 100),
-          Text(_datosProducto.precio.toString()),
-        ],
-
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(_datosProducto.nombre),
+            Image.network(_datosProducto.imagen, width: 100, height: 100),
+            Text(_datosProducto.precio.toString()),
+          ],
+        ),
       ),
     );
   }
+
 }
 

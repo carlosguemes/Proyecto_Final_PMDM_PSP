@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FbProducto{
 
   final String nombre;
-  final double precio;
+  final int precio;
   final String imagen;
 
   FbProducto({

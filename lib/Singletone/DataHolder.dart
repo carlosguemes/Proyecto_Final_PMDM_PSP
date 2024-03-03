@@ -20,7 +20,7 @@ class DataHolder{
     if (productoGuardado!=null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('nombre', productoGuardado!.nombre);
-      prefs.setDouble('precio', productoGuardado!.precio);
+      prefs.setInt('precio', productoGuardado!.precio);
       prefs.setString('imagen', productoGuardado!.imagen);
     }
   }
@@ -34,7 +34,7 @@ class DataHolder{
     String? nombre = prefs.getString('nombre');
     nombre??="";
 
-    double? precio = prefs.getDouble('precio');
+    int? precio = prefs.getInt('precio');
     precio??=0;
 
     String? imagen = prefs.getString('imagen');

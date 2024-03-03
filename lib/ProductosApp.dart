@@ -17,7 +17,7 @@ class ProductosApp extends StatelessWidget{
         '/loginview': (context) => LoginView(),
         '/productosview': (context) => ProductosView(),
       },
-      initialRoute: '/loginview',
+      initialRoute: '/homeview',
     );
   }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextEditingPersonalizado extends StatelessWidget {
   static const double paddingVertical = 10;
-  static const double paddingFraction = 0.30;
+  static const double paddingFraction = 0.20;
 
   TextEditingController controlador;
   String texto;
