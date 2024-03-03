@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../FbObjects/FbProducto.dart';
+import '../Singletone/DataHolder.dart';
 import '../VistasPersonalizadas/CeldasPersonalizadas.dart';
 import '../VistasPersonalizadas/DrawerPersonalizado.dart';
 import 'LoginView.dart';
@@ -62,7 +63,9 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void onItemListaClicked(int index){
-
+    DataHolder().productoGuardado = productos[index];
+    DataHolder().saveSelectedProductoInCache();
+    Navigator.of(context).pushNamed('/productosview');
   }
 
   Widget creadorCeldas(BuildContext context, int index){

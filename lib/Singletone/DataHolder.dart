@@ -19,9 +19,9 @@ class DataHolder{
   void saveSelectedProductoInCache() async{
     if (productoGuardado!=null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('titulo', productoGuardado!.nombre);
+      prefs.setString('nombre', productoGuardado!.nombre);
       prefs.setDouble('precio', productoGuardado!.precio);
-      prefs.setString('cuerpo', productoGuardado!.imagen);
+      prefs.setString('imagen', productoGuardado!.imagen);
     }
   }
 

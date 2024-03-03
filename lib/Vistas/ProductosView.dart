@@ -12,6 +12,12 @@ class _ProductosViewState extends State<ProductosView> {
   FbProducto _datosProducto =
   FbProducto(nombre: "nombre", precio: 0, imagen: "imagen");
 
+  @override
+  void initState() {
+    super.initState();
+    cargarProductoGuardadoEnCache();
+  }
+
   void cargarProductoGuardadoEnCache() async{
     var temp1 = await DataHolder().initCachedFbProducto();
 
