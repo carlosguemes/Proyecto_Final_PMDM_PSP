@@ -13,10 +13,21 @@ class DataHolder{
   }
 
   DataHolder._internal(){
-    initCachedFbPost();
+    initCachedFbProducto();
   }
 
-  Future<FbProducto?> initCachedFbPost() async{
+  void saveSelectedProductoInCache() async{
+    if (productoGuardado!=null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('titulo', productoGuardado!.nombre);
+      prefs.setDouble('precio', productoGuardado!.precio);
+      prefs.setString('cuerpo', productoGuardado!.imagen);
+    }
+  }
+
+
+
+  Future<FbProducto?> initCachedFbProducto() async{
     if (productoGuardado!=null) return productoGuardado;
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
