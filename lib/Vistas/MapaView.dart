@@ -17,7 +17,7 @@ class MapaViewState extends State<MapaView> {
   Set<Marker> marcadores = Set();
 
   static final CameraPosition _kMadrid = CameraPosition(
-    target: LatLng(40.4168, -3.7038), // Coordenadas de Madrid
+    target: LatLng(40.4227274, -3.5312032), // Coordenadas de Madrid
     zoom: 14.0,
   );
 
@@ -49,8 +49,8 @@ class MapaViewState extends State<MapaView> {
   Future<void> _goToTheLake() async {
     CameraPosition _kUser = CameraPosition(
       target: LatLng(40.4227274, -3.5312032),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414,
+      //tilt: 59.440717697143555,
+      zoom: 15,
     );
 
     _controller.animateCamera(CameraUpdate.newCameraPosition(_kUser));
