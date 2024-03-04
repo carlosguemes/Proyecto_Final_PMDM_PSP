@@ -25,6 +25,14 @@ class DataHolder{
     }
   }
 
+  void crearProductoEnFirebase(FbProducto producto){
+    CollectionReference<FbProducto> reference = db
+        .collection("Productos")
+        .withConverter(fromFirestore: FbProducto.fromFirestore,
+        toFirestore: (FbProducto post, _) => post.toFirestore());
+
+    reference.add(producto);
+  }
 
 
   Future<FbProducto?> initCachedFbProducto() async{
