@@ -95,6 +95,13 @@ class _HomeViewState extends State<HomeView> {
           Center(child: vistaProductos())
       ),
       drawer: DrawerPersonalizado(onItemTap: eventoDrawerPersonalizado),
+
+      floatingActionButton:FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("/productocreateview");
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
