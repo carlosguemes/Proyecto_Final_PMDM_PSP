@@ -23,7 +23,7 @@ class ProductosApp extends StatelessWidget{
         '/perfilview': (context) => PerfilView(),
         '/productocreateview': (context) => CrearProductosView(),
       },
-      initialRoute: '/loginview',
+      initialRoute: '/homeview',
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:proyecto_final_pmdm_psp/VistasPersonalizadas/SnackBarMensaje.dart';
 import 'package:proyecto_final_pmdm_psp/VistasPersonalizadas/TextEditingPersonalizado.dart';
 
 import '../FbObjects/FbProducto.dart';
@@ -38,7 +39,7 @@ class _PostCreateViewState extends State<CrearProductosView> {
     }
   }
 
-  void subirPost() async{
+  void subirProducto() async{
     final storageRef = FirebaseStorage.instance.ref();
 
     String rutaEnNube=
@@ -48,33 +49,41 @@ class _PostCreateViewState extends State<CrearProductosView> {
     final metadata = SettableMetadata(contentType: "image/jpeg");
 
     //------------INICIO DE SUBIR IMAGEN--------------//
-    try{
-      await rutaAFicheroEnNube.putFile(_imagePreview, metadata);
-    } on FirebaseException catch (o){
-      print("ERROR AL SUBIR LA IMAGEN: " + o.toString());
+
+    if (tecNombre.text == "" || tecPrecio.text == "" || _imagePreview.path == ""){
+      SnackBarMensaje().muestraSnackBar(context, "Debe introducir todos los campos y subir una imagen");
+      print(_imagePreview.path);
     }
-    print("Se ha subido la imagen");
+    else{
+      try{
+        await rutaAFicheroEnNube.putFile(_imagePreview, metadata);
+      } on FirebaseException catch (o){
+        print("ERROR AL SUBIR LA IMAGEN: " + o.toString());
+      }
+      print("Se ha subido la imagen");
 
 
-    String imgUrl = await rutaAFicheroEnNube.getDownloadURL();
+      String imgUrl = await rutaAFicheroEnNube.getDownloadURL();
 
-    print("Se ha subido la imagen " + imgUrl);
+      print("Se ha subido la imagen " + imgUrl);
 
     //------------FIN DE SUBIR IMAGEN--------------//
 
     //------------INICIO DE SUBIR POST--------------//
 
-    FbProducto productoNuevo = new FbProducto(
-        nombre: tecNombre.text,
-        precio: int.parse(tecPrecio.text),
-        imagen: imgUrl
-    );
 
-    DataHolder().crearProductoEnFirebase(productoNuevo);
+      FbProducto productoNuevo = new FbProducto(
+          nombre: tecNombre.text,
+          precio: int.parse(tecPrecio.text),
+          imagen: imgUrl
+      );
 
-    //------------FIN DE SUBIR POST--------------//
+      DataHolder().crearProductoEnFirebase(productoNuevo);
 
-    Navigator.of(context).pushNamed('/homeview');
+      //------------FIN DE SUBIR POST--------------//
+
+      Navigator.of(context).pushNamed('/homeview');
+    }
 
   }
 
@@ -86,25 +95,28 @@ class _PostCreateViewState extends State<CrearProductosView> {
       appBar: AppBar(title: Text('Crear nuevo producto')),
       body: Column(
         children: [
-          TextEditingPersonalizado(controlador: tecNombre, texto: "Escribe el título", contrasenya: false),
-          TextEditingPersonalizado(controlador: tecPrecio, texto: "Escribe el cuerpo", contrasenya: false),
+          TextEditingPersonalizado(controlador: tecNombre, texto: "Escribe el nombre", contrasenya: false),
+          TextEditingPersonalizado(controlador: tecPrecio, texto: "Escribe el precio", contrasenya: false),
           if (_imagePreview.path != "")
             Image.file(_imagePreview, width: 100, height: 100),
 
           Row(
-            children: [
-              TextButton(onPressed: onGalleryClicked, child: Text("Galeria")),
-              TextButton(onPressed: onCameraClicked, child: Text("Camara")),
-            ],
-          ),
+            mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(onPressed: onGalleryClicked, child: Text("Galeria")),
+                TextButton(onPressed: onCameraClicked, child: Text("Camara")),
+              ],
+            ),
 
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(onPressed: subirPost, child: Text("Postear")),
+              TextButton(onPressed: subirProducto, child: Text("Guardar")),
             ],
           ),
         ],
       ),
     );
   }
+
 }
