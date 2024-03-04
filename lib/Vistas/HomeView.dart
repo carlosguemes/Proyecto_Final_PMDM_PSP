@@ -6,6 +6,7 @@ import '../FbObjects/FbProducto.dart';
 import '../Singletone/DataHolder.dart';
 import '../VistasPersonalizadas/CeldasPersonalizadas.dart';
 import '../VistasPersonalizadas/DrawerPersonalizado.dart';
+import '../VistasPersonalizadas/ListasPersonalizadas.dart';
 import 'LoginView.dart';
 import 'MapaView.dart';
 import 'RegisterView.dart';
@@ -70,6 +71,20 @@ class _HomeViewState extends State<HomeView> {
     Navigator.of(context).pushNamed('/productosview');
   }
 
+  Widget? creadorDeItemLista(BuildContext context, int index){
+    return ListasPersonalizadas(sText: productos[index].nombre,
+      dFontSize: 20,
+      mcColores: Colors.blueGrey,
+      iPosicion: index,
+      onItemListaClickedFunction: onItemListaClicked,
+      imagen: productos[index].imagen,
+    );
+  }
+
+  Widget creadorDeSeparadorLista(BuildContext context, int index){
+    return Divider(color: Colors.orange);
+  }
+
   Widget creadorCeldas(BuildContext context, int index){
     return CeldasPersonalizadas(
       productos: productos,
@@ -82,6 +97,19 @@ class _HomeViewState extends State<HomeView> {
     return creadorCeldas(context, productos.length);
   }
 
+  Widget celdasOLista(bool isList) {
+    if (isList) {
+      return ListView.separated(
+        padding: EdgeInsets.all(8),
+        itemCount: productos.length,
+        itemBuilder: creadorDeItemLista,
+        separatorBuilder: creadorDeSeparadorLista,
+      );
+    } else {
+      return creadorCeldas(context, productos.length);
+    }
+  }
+
   @override
   void initState() {
     descargarProductos();
@@ -92,7 +120,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(title: Text("Ajustes")),
       body: (
-          Center(child: vistaProductos())
+          Center(child: celdasOLista(esLista))
       ),
       drawer: DrawerPersonalizado(onItemTap: eventoDrawerPersonalizado),
 
