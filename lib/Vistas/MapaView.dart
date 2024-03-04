@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+//import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
@@ -15,11 +16,24 @@ class MapaView extends StatefulWidget {
 class MapaViewState extends State<MapaView> {
   late GoogleMapController _controller;
   Set<Marker> marcadores = Set();
+  //Position? _ubicacionActual;
 
   static final CameraPosition _kMadrid = CameraPosition(
     target: LatLng(40.4227274, -3.5312032), // Coordenadas de Madrid
     zoom: 14.0,
   );
+
+  /*Future<void> ubicacionActual() async {
+    final posicion = await Geolocator.getCurrentPosition();
+    setState(() {
+      _ubicacionActual = posicion;
+    });
+  }*/
+
+  @override
+  void initState() {
+    //ubicacionActual();
+  }
 
   @override
   Widget build(BuildContext context) {
