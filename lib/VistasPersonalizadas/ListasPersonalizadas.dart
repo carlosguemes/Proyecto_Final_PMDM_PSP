@@ -27,12 +27,12 @@ class ListasPersonalizadas extends StatelessWidget {
           color: mcColores,
           child: Row(
             children: [
+              Padding(padding: EdgeInsets.all(8.0)),
               Image.network(imagen,
                   width: 100,
                   height: 100),
+              Padding(padding: EdgeInsets.all(8.0)),
               Text(sText, style: TextStyle(fontSize: dFontSize)),
-              TextButton(onPressed: null,
-                  child: Text("+", style: TextStyle(fontSize: dFontSize)))
             ],
           )
       ),

@@ -150,8 +150,8 @@ class _ProductosViewState extends State<ProductosView> {
       appBar: AppBar(title: Text('Edita el producto')),
       body: Column(
         children: [
-          TextEditingPersonalizado(controlador: tecNombre, texto: _datosProducto.nombre, contrasenya: false),
-          TextEditingPersonalizado(controlador: tecPrecio, texto: _datosProducto.precio.toString(), contrasenya: false),
+          TextEditingPersonalizado(controlador: tecNombre, texto: "Nombre del producto", contrasenya: false),
+          TextEditingPersonalizado(controlador: tecPrecio, texto: "Precio del producto", contrasenya: false),
           if (!cambioImagen)
             Image.network(_datosProducto.imagen, width: 100, height: 100)
 

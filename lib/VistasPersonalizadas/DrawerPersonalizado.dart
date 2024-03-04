@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DrawerPersonalizado extends StatelessWidget{
 
   Function (int indice)? onItemTap;
-  DrawerPersonalizado({Key? key, required this.onItemTap}) : super(key: key);
+  String nombreUsuario;
+  DrawerPersonalizado({Key? key,
+    required this.onItemTap,
+    required this.nombreUsuario}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +16,13 @@ class DrawerPersonalizado extends StatelessWidget{
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.black,
             ),
             child: Text(
                 style: TextStyle(color: Colors.white),
-                'Ajustes'
+                'Bienvenido ' + nombreUsuario
             ),
           ),
           ListTile(
@@ -40,5 +45,4 @@ class DrawerPersonalizado extends StatelessWidget{
       ),
     );
   }
-
 }

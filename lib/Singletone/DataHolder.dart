@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:proyecto_final_pmdm_psp/FbObjects/FbProducto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../FbObjects/FbUsuario.dart';
+
 class DataHolder{
   FbProducto? productoGuardado;
+  late FbUsuario usuario;
 
   static final DataHolder _dataHolder = new DataHolder._internal();
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -33,7 +37,6 @@ class DataHolder{
 
     reference.add(producto);
   }
-
 
   Future<FbProducto?> initCachedFbProducto() async{
     if (productoGuardado!=null) return productoGuardado;

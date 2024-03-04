@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../FbObjects/FbProducto.dart';
+import '../FbObjects/FbUsuario.dart';
 import '../Singletone/DataHolder.dart';
 import '../VistasPersonalizadas/CeldasPersonalizadas.dart';
 import '../VistasPersonalizadas/DrawerPersonalizado.dart';
 import '../VistasPersonalizadas/ListasPersonalizadas.dart';
+import '../VistasPersonalizadas/MenuBottom.dart';
 import 'LoginView.dart';
 import 'MapaView.dart';
 import 'RegisterView.dart';
@@ -19,6 +21,7 @@ class HomeView extends StatefulWidget{
 class _HomeViewState extends State<HomeView> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbProducto> productos = [];
+  FbUsuario usuario = FbUsuario(nombre: "", edad: 0);
 
   void descargarProductos() async{
     CollectionReference<FbProducto> reference = db
@@ -35,12 +38,24 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+  void descargarUsuario() async{
+    String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<FbUsuario> reference = db
+        .collection("Usuarios")
+        .doc(uidUsuario)
+        .withConverter(fromFirestore: FbUsuario.fromFirestore,
+        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
+
+    DocumentSnapshot<FbUsuario> docSnap = await reference.get();
+    usuario = docSnap.data()!;
+  }
+
   bool esLista = false;
   void onBottomMenuPressed(int indice) {
     setState(() {
       if (indice == 0){
         esLista = true;
-        print('object');
       }
       else if (indice == 1){
         esLista = false;
@@ -74,7 +89,7 @@ class _HomeViewState extends State<HomeView> {
   Widget? creadorDeItemLista(BuildContext context, int index){
     return ListasPersonalizadas(sText: productos[index].nombre,
       dFontSize: 20,
-      mcColores: Colors.blueGrey,
+      mcColores: Colors.blue,
       iPosicion: index,
       onItemListaClickedFunction: onItemListaClicked,
       imagen: productos[index].imagen,
@@ -112,6 +127,8 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
+    super.initState();
+    descargarUsuario();
     descargarProductos();
   }
 
@@ -122,7 +139,11 @@ class _HomeViewState extends State<HomeView> {
       body: (
           Center(child: celdasOLista(esLista))
       ),
-      drawer: DrawerPersonalizado(onItemTap: eventoDrawerPersonalizado),
+
+      bottomNavigationBar: MenuBottom(events: onBottomMenuPressed),
+
+      drawer: DrawerPersonalizado(onItemTap: eventoDrawerPersonalizado,
+      nombreUsuario: usuario.nombre,),
 
       floatingActionButton:FloatingActionButton(
         onPressed: () {
