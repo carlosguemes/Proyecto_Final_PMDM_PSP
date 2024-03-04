@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_final_pmdm_psp/Vistas/PerfilView.dart';
 
 import 'Vistas/HomeView.dart';
 import 'Vistas/LoginView.dart';
@@ -18,8 +19,9 @@ class ProductosApp extends StatelessWidget{
         '/loginview': (context) => LoginView(),
         '/productosview': (context) => ProductosView(),
         '/mapaview': (context) => MapaView(),
+        '/perfilview': (context) => PerfilView(),
       },
-      initialRoute: '/homeview',
+      initialRoute: '/loginview',
     );
   }
 

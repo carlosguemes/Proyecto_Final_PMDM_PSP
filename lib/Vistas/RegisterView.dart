@@ -23,7 +23,7 @@ class RegisterView extends StatelessWidget{
           email: correoUsuarioController.text,
           password: contrasenyaUsuarioController.text,
         );
-        Navigator.of(_context).popAndPushNamed('/homeview');
+        Navigator.of(_context).popAndPushNamed('/loginview');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           SnackBarMensaje().muestraSnackBar(_context, "La contraseña es demasiado débil");

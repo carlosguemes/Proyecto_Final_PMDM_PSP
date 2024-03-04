@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../FbObjects/FbUsuario.dart';
 import '../VistasPersonalizadas/TextEditingPersonalizado.dart';
 
 class LoginView extends StatelessWidget{
@@ -10,13 +12,37 @@ class LoginView extends StatelessWidget{
   TextEditingController correoUsuarioController = TextEditingController();
   TextEditingController contrasenyaUsuarioController = TextEditingController();
 
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
   void botonAceptar() async{
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: correoUsuarioController.text,
         password: contrasenyaUsuarioController.text,
       );
-      Navigator.of(_context).popAndPushNamed('/homeview');
+
+      String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
+
+      DocumentReference<FbUsuario> reference = db
+          .collection("Usuarios")
+          .doc(uidUsuario)
+          .withConverter(fromFirestore: FbUsuario.fromFirestore,
+          toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
+
+      DocumentSnapshot<FbUsuario> docSnap = await reference.get();
+      if (docSnap.exists) {
+        FbUsuario usuario = docSnap.data()!;
+        if (usuario != null) {
+          print("Nombre del usuario: " + usuario.nombre);
+          print("Edad del usuario: " + usuario.edad.toString());
+          Navigator.of(_context).popAndPushNamed("/homeview");
+        }
+      }
+
+      else{
+        Navigator.of(_context).popAndPushNamed('/perfilview');
+      }
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
