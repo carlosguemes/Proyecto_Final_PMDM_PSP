@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextEditingPersonalizado extends StatelessWidget {
   static const double paddingVertical = 10;
-  static const double paddingFraction = 0.20;
+  static const double paddingHorizontal = 0.20;
 
   TextEditingController controlador;
   String texto;
@@ -17,7 +17,7 @@ class TextEditingPersonalizado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double tamanyoHorizontal = screenWidth * paddingFraction;
+    double tamanyoHorizontal = screenWidth * paddingHorizontal;
 
     return Padding(
       padding: EdgeInsets.symmetric(

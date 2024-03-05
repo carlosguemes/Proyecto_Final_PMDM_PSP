@@ -13,8 +13,6 @@ class Admin {
       'hourly': 'temperature_2m',
     });
 
-    print("URL RESULTANTE: " + url.toString());
-
     var response = await http.get(url);
 
     if (response.statusCode == 200) {

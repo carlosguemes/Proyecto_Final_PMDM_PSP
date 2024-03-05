@@ -28,7 +28,6 @@ class _SplashViewState extends State<SplashView>{
 
     if (FirebaseAuth.instance.currentUser != null) {
       String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
-      //DocumentSnapshot<Map<String, dynamic>> datos = await db.collection("Usuarios").doc(uidUsuario).get();
 
       DocumentReference<FbUsuario> reference = db
           .collection("Usuarios")

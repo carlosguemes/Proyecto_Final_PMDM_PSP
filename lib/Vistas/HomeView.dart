@@ -11,7 +11,6 @@ import '../VistasPersonalizadas/ListasPersonalizadas.dart';
 import '../VistasPersonalizadas/MenuBottom.dart';
 import 'LoginView.dart';
 import 'MapaView.dart';
-import 'RegisterView.dart';
 
 class HomeView extends StatefulWidget{
   @override
@@ -132,10 +131,81 @@ class _HomeViewState extends State<HomeView> {
     descargarProductos();
   }
 
+  Future <void> pedirTemperatura() async{
+    try {
+      double temperatura = await DataHolder().admin.pedirTemperaturasEn(40.422767815469285, -3.528639686059464);
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Información'),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('La temperatura actual en San Fernando es de: $temperatura ºC'),
+
+              ],
+            ),
+            actions: [
+              TextButton(
+                child: Text('Aceptar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Error al obtener la temperatura'),
+            actions: [
+              TextButton(
+                child: Text('Aceptar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Ajustes")),
+      appBar: AppBar(
+          title: Text("Ajustes"),
+      actions: [
+        PopupMenuButton(
+          onSelected: (indice) {
+            switch (indice) {
+              case 'apiTiempo':
+                pedirTemperatura();
+                break;
+            }
+          },
+          itemBuilder: (BuildContext context) => [
+            PopupMenuItem(
+              value: 'apiTiempo',
+              child: ListTile(
+                leading: Icon(Icons.sunny_snowing),
+                title: Text('Temperatura'),
+              ),
+            ),
+          ],
+        ),
+      ],
+      ),
       body: (
           Center(child: celdasOLista(esLista))
       ),

@@ -38,19 +38,34 @@ class MapaViewState extends State<MapaView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kMadrid,
-        onMapCreated: (GoogleMapController controller) {
-          _controller = controller;
-        },
-        markers: marcadores,
-        gestureRecognizers: Set()
-          ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
-          ..add(Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()))
-          ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
-          ..add(Factory<VerticalDragGestureRecognizer>(
-                  () => VerticalDragGestureRecognizer())),
+      body: Stack(
+        children: [
+          GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kMadrid,
+            onMapCreated: (GoogleMapController controller) {
+              _controller = controller;
+            },
+            markers: marcadores,
+            gestureRecognizers: Set()
+              ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+              ..add(Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()))
+              ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
+              ..add(Factory<VerticalDragGestureRecognizer>(
+                      () => VerticalDragGestureRecognizer())),
+          ),
+          Positioned(
+            top: 16.0,
+            left: 16.0,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).popAndPushNamed('/homeview');
+              },
+              child: Icon(Icons.arrow_back),
+              backgroundColor: Colors.blue,
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
@@ -60,9 +75,10 @@ class MapaViewState extends State<MapaView> {
     );
   }
 
+
   Future<void> _goToTheLake() async {
     CameraPosition _kUser = CameraPosition(
-      target: LatLng(40.4227274, -3.5312032),
+      target: LatLng(40.422767815469285, -3.528639686059464),
       //tilt: 59.440717697143555,
       zoom: 15,
     );
