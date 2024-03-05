@@ -4,10 +4,12 @@ import 'package:proyecto_final_pmdm_psp/FbObjects/FbProducto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FbObjects/FbUsuario.dart';
+import 'Admin.dart';
 
 class DataHolder{
   FbProducto? productoGuardado;
   late FbUsuario usuario;
+  Admin admin = Admin();
 
   static final DataHolder _dataHolder = new DataHolder._internal();
   FirebaseFirestore db = FirebaseFirestore.instance;

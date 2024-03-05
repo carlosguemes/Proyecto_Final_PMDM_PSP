@@ -60,6 +60,7 @@ class _SplashViewState extends State<SplashView>{
     return Stack(
       children: [
         Positioned(
+          //- 20 por el tamaño del radio del círculo
           left: screenSize.width * 0.5 - 20,
           top: screenSize.height * 0.5 - 20,
           child: CircularProgressIndicator(),
