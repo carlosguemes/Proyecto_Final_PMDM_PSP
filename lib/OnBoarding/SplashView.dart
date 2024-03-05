@@ -55,15 +55,17 @@ class _SplashViewState extends State<SplashView>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    Size screenSize = MediaQuery.of(context).size;
 
     return Stack(
-        children: [
-          Positioned(
-              child: CircularProgressIndicator()
-          ),
-        ]
+      children: [
+        Positioned(
+          left: screenSize.width * 0.5 - 20,
+          top: screenSize.height * 0.5 - 20,
+          child: CircularProgressIndicator(),
+        ),
+      ],
     );
-
   }
+
 }
