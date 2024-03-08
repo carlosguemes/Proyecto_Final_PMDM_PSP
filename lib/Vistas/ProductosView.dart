@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:proyecto_final_pmdm_psp/FbObjects/FbProducto.dart';
+import 'package:proyecto_final_pmdm_psp/VistasPersonalizadas/SnackBarMensaje.dart';
 
 import '../Singletone/DataHolder.dart';
 import '../VistasPersonalizadas/TextEditingPersonalizado.dart';
@@ -118,13 +119,24 @@ class _ProductosViewState extends State<ProductosView> {
 
           print("-----------------> texto: " + tecPrecio.text);
 
-          producto = FbProducto(nombre: tecNombre.text,
-              precio: int.parse(tecPrecio.text), imagen: imgUrl);
+          try{
+            producto = FbProducto(nombre: tecNombre.text,
+                precio: int.parse(tecPrecio.text), imagen: imgUrl);
+          } on Exception catch (e){
+            SnackBarMensaje().muestraSnackBar(context, "No se ha podido guardar el producto. Ingrese bien todos los campos. El precio debe ser un número entero");
+            Navigator.of(context).popAndPushNamed('/homeview');
+          }
         }
 
         else{
-          producto = FbProducto(nombre: tecNombre.text,
-              precio: int.parse(tecPrecio.text), imagen: _datosProducto.imagen);
+          try{
+            producto = FbProducto(nombre: tecNombre.text,
+                precio: int.parse(tecPrecio.text), imagen: _datosProducto.imagen);
+          } on Exception catch (e){
+            SnackBarMensaje().muestraSnackBar(context, "No se ha podido guardar el producto. Ingrese bien todos los campos. El precio debe ser un número entero");
+            Navigator.of(context).popAndPushNamed('/homeview');
+          }
+
         }
 
         print("----------------------->ID: " + idProducto);
